@@ -17,18 +17,18 @@ public class Main {
         File vectors = new File("D://Games/res/vectors");
         File icons = new File("D://Games/res/icons");
 
-        ArrayList<File> directors = new ArrayList<>();
-        directors.add(src);
-        directors.add(res);
-        directors.add(savegames);
-        directors.add(temp);
-        directors.add(main);
-        directors.add(test);
-        directors.add(drawables);
-        directors.add(vectors);
-        directors.add(icons);
+        ArrayList<File> directory = new ArrayList<>();
+        directory.add(src);
+        directory.add(res);
+        directory.add(savegames);
+        directory.add(temp);
+        directory.add(main);
+        directory.add(test);
+        directory.add(drawables);
+        directory.add(vectors);
+        directory.add(icons);
 
-        for (File file : directors) {
+        for (File file : directory) {
             if (file.mkdir()) {
                 sb.append("Директория " + file.getName() + " создана" + '\n');
             } else {
@@ -50,7 +50,7 @@ public class Main {
                 if (file.createNewFile()) {
                     sb.append("Файл " + file.getName() + " создан" + '\n');
                 } else {
-                    sb.append("Файл " + file.getName() + " создан" + '\n');
+                    sb.append("Файл " + file.getName() + " не создан" + '\n');
                 }
             } catch (IOException ex) {
                 System.out.println(ex.getMessage());
