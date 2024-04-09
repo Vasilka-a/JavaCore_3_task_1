@@ -7,45 +7,43 @@ public class Main {
     public static void main(String[] args) throws Exception {
         StringBuilder sb = new StringBuilder();
 
-        File src = new File("D://Games/src");
-        File res = new File("D://Games/res");
-        File savegames = new File("D://Games/savegames");
-        File temp = new File("D://Games/temp");
-        File main = new File("D://Games/src/main");
-        File test = new File("D://Games/src/test");
-        File drawables = new File("D://Games/res/drawables");
-        File vectors = new File("D://Games/res/vectors");
-        File icons = new File("D://Games/res/icons");
+        ArrayList<String> directory = new ArrayList<>();
+        directory.add("D://Games/src");
+        directory.add("D://Games/res");
+        directory.add("D://Games/savegames");
+        directory.add("D://Games/temp");
+        directory.add("D://Games/src/main");
+        directory.add("D://Games/src/test");
+        directory.add("D://Games/res/drawables");
+        directory.add("D://Games/res/vectors");
+        directory.add("D://Games/res/icons");
 
-        ArrayList<File> directory = new ArrayList<>();
-        directory.add(src);
-        directory.add(res);
-        directory.add(savegames);
-        directory.add(temp);
-        directory.add(main);
-        directory.add(test);
-        directory.add(drawables);
-        directory.add(vectors);
-        directory.add(icons);
+        createDirectory(directory, sb);
 
-        for (File file : directory) {
+        ArrayList<String> files = new ArrayList<>();
+        files.add("D://Games/src/main/Main.java");
+        files.add("D://Games/src/main/Utils.java");
+        files.add("D://Games/temp/temp.txt");
+
+        createFiles(files, sb);
+
+        createLog(sb);
+    }
+
+    public static void createDirectory(ArrayList<String> directory, StringBuilder sb) {
+        for (String name : directory) {
+            File file = new File(name);
             if (file.mkdir()) {
                 sb.append("Директория " + file.getName() + " создана" + '\n');
             } else {
                 sb.append("Директория " + file.getName() + " не создана" + '\n');
             }
         }
+    }
 
-        File mainGame = new File("D://Games/src/main/Main.java");
-        File utils = new File("D://Games/src/main/Utils.java");
-        File info = new File("D://Games/temp/temp.txt");
-
-        ArrayList<File> files = new ArrayList<>();
-        files.add(mainGame);
-        files.add(utils);
-        files.add(info);
-
-        for (File file : files) {
+    public static void createFiles(ArrayList<String> files, StringBuilder sb) {
+        for (String name : files) {
+            File file = new File(name);
             try {
                 if (file.createNewFile()) {
                     sb.append("Файл " + file.getName() + " создан" + '\n');
@@ -55,15 +53,17 @@ public class Main {
             } catch (IOException ex) {
                 System.out.println(ex.getMessage());
             }
+        }
+    }
 
-            String text = sb.toString();
-
-            try (FileWriter writer = new FileWriter("D://Games/temp/temp.txt", false)) {
-                writer.write(text);
-                writer.flush();
-            } catch (IOException ex) {
-                System.out.println(ex.getMessage());
-            }
+    public static void createLog(StringBuilder sb) {
+        String text = sb.toString();
+        try (FileWriter writer = new FileWriter("D://Games/temp/temp.txt", false)) {
+            writer.write(text);
+            writer.flush();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
         }
     }
 }
+
